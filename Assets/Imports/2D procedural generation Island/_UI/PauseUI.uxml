@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; justify-content: center; align-items: center;">
+        <ui:VisualElement name="Container" style="flex-grow: 1; justify-content: center; align-items: center; width: 50%; height: 50px; align-self: center; background-image: url(&quot;project://database/Assets/_Assets/_Sprites/Puny-Characters/Environment/Dirt.png?fileID=-8275502208090371910&amp;guid=2425a67bf53be1549b7371aea34ee2f2&amp;type=3#Dirt_0&quot;); -unity-slice-left: 0; max-width: 0; max-height: 0; min-width: 50%; min-height: 50%; top: 25%;">
+            <ui:Button text="Generate Map" parse-escape-sequences="true" display-tooltip-when-elided="true" name="GenerateBtn" enable-rich-text="true" style="width: 50%; height: 25%; font-size: 40%;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
