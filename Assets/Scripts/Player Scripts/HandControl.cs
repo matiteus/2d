@@ -6,10 +6,23 @@ public class HandControl : MonoBehaviour
 {
     [SerializeField] private LayerMask dotLayer;
     [SerializeField] private LayerMask tileLayer;
+    public static HandControl Instance { get; private set; }
 
     private bool isDrawing = false;
     private Tile startTile;
     private List<Tile> currentPath = new List<Tile>();
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -110,5 +123,10 @@ public class HandControl : MonoBehaviour
     {
         Vector2Int diff = a.GridPosition - b.GridPosition;
         return (Mathf.Abs(diff.x) == 1 && diff.y == 0) || (Mathf.Abs(diff.y) == 1 && diff.x == 0);
+    }
+
+    public void LineDestroyed()
+    {
+        isDrawing = false;
     }
 }

@@ -176,7 +176,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1893197092523257583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d89e7bebd44515409bd5bd8a9b56b1c, type: 3}
+  m_Script: {fileID: 11500000, guid: bc5e90394df302b46a8cb4c105fadbb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DotColor: Blue

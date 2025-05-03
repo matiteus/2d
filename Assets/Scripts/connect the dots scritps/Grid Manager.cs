@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +21,7 @@ public class GridManager : MonoBehaviour
     private GameObject greedDot2;
     private GameObject redDot1;
     private GameObject redDot2;
+    private Dictionary<string, List<Tile>> paths = new Dictionary<string, List<Tile>>();
     private int connectionsMade = 0;
     private int gameState = 0; // 0 = grid1, 1 = grid2, 2 = grid3
 
@@ -43,7 +46,6 @@ public class GridManager : MonoBehaviour
         Debug.Log("GridManager Start called");
         instantiatedGrid = Instantiate(grid1, transform);
         FindChldrenWithTag(instantiatedGrid.transform);
-        //Instantiate grid
     }
 
     private void FindChldrenWithTag(Transform grid)
@@ -145,6 +147,14 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public void SaveLinePath(List<Tile> linePath, string color)
+    {
+        paths[color] = linePath;
+    }
+    public void DeleteLinePath(string color)
+    {
+
+    }
     private void CheckLoadNextStage()
     {
         if(gameState == lastStage)
@@ -156,6 +166,7 @@ public class GridManager : MonoBehaviour
             Destroy(instantiatedGrid);
 
             gameState++;
+            connectionsMade = 0;
             FindChldrenWithTag(instantiatedGrid.transform);
         }
     }

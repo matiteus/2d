@@ -101,13 +101,14 @@ public class GridPathManager : MonoBehaviour
                 if (tile.IsOccupied)
                 {
                     // If the tile already has a path, paths cross -> destroy both
-                    DestroyPath(tile);
+                    GridManager.Instance.LineDestroyed(tile.DotColor);
                     DestroyCurrentPath();
                 }
                 else
                 {
                     currentPath.Add(tile);
                     tile.IsOccupied = true;
+                    tile.Color = currentColor;
                     UpdateLineRenderer();
                 }
             }
@@ -125,7 +126,7 @@ public class GridPathManager : MonoBehaviour
         Tile lastTile = currentPath[currentPath.Count - 1];
         if (lastTile.IsDot && lastTile.DotColor == currentColor && lastTile != startTile)
         {
-            
+            GridManager.Instance.SaveLinePath(currentPath, currentColor);
             GridManager.Instance.ColorsConnected(currentColor);
             Debug.Log("Connected: " + currentColor);
         }
@@ -138,22 +139,17 @@ public class GridPathManager : MonoBehaviour
 
     private void DestroyCurrentPath()
     {
+        HandControl.Instance.LineDestroyed();
         foreach (Tile tile in currentPath)
         {
             tile.IsOccupied = false;
+            tile.Color = "";
         }
         if (currentLine != null)
         {
             Destroy(currentLine.gameObject);
         }
         currentPath.Clear();
-    }
-
-    private void DestroyPath(Tile tile)
-    {
-        // Optional: if you store tile's path line ref, destroy that too
-        Debug.Log("Paths crossed! Both destroyed!");
-        GridManager.Instance.LineDestroyed(tile.DotColor);
     }
 
     private Tile GetTileUnderPosition(Vector2 position)
@@ -188,6 +184,7 @@ public class GridPathManager : MonoBehaviour
         if (lastTile == tile)
         {
             lastTile.IsOccupied = false;
+            lastTile.Color = "";
             currentPath.RemoveAt(currentPath.Count - 1);
             UpdateLineRenderer();
         }
