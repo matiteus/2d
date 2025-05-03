@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      raven-black0003_0: 7729808876364377820
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -28,20 +28,22 @@ public class HandControl : MonoBehaviour
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            Debug.Log("Left mouse button pressed, calling TryStartDrawing");
-            TryStartDrawing();
+            if (!isDrawing)
+            {
+                TryStartDrawing();
+            }
+            else
+            {
+                EndDrawing();
+            }
         }
-        else if (Mouse.current.leftButton.isPressed && isDrawing)
+
+        if (isDrawing)
         {
-            Debug.Log("Left mouse button is pressed, calling TryExtendDrawing");
             TryExtendDrawing();
         }
-        else if (Mouse.current.leftButton.wasReleasedThisFrame && isDrawing)
-        {
-            Debug.Log("Left mouse button released, calling EndDrawing");
-            EndDrawing();
-        }
     }
+
 
     private void TryStartDrawing()
     {
@@ -51,12 +53,7 @@ public class HandControl : MonoBehaviour
         {
             startTile = tile;
             isDrawing = true;
-            currentPath.Clear();
             GridPathManager.Instance.StartNewPath(startTile);
-        }
-        else
-        {
-            Debug.Log("Tile is null or not a dot, cannot start drawing.");
         }
     }
 
@@ -74,6 +71,14 @@ public class HandControl : MonoBehaviour
                 GridPathManager.Instance.ExtendPath(tile);
             }
         }
+        else if (currentPath.Count >= 2 && tile == currentPath[currentPath.Count - 2])
+        {
+            // Remove the last tile (we are stepping back)
+            Tile removed = currentPath[currentPath.Count - 1];
+            currentPath.RemoveAt(currentPath.Count - 1);
+
+            GridPathManager.Instance.RemoveLastPathStep(removed);
+        }
     }
 
     private void EndDrawing()
@@ -85,23 +90,19 @@ public class HandControl : MonoBehaviour
 
     private Tile GetTileUnderMouse(LayerMask mask)
     {
-        Debug.Log("GetTileUnderMouse called");
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, mask);
         if (hit.collider != null)
         {
             if (hit.collider.TryGetComponent(out Dot dot))
             {
-                Debug.Log("Hit a dot");
-                return dot.TileUnderneath; // Use the tile under the dot
+                return dot.TileUnderneath; 
             }
             else if (hit.collider.TryGetComponent(out Tile tile))
             {
-                Debug.Log("Hit a tile");
-                return tile; // Directly clicked a tile
+                return tile;
             }
         }
-        Debug.Log("No collider hit");
         return null;
     }
 

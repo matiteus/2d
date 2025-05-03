@@ -7,7 +7,7 @@ public class GridPathManager : MonoBehaviour
 
     public static GridPathManager Instance { get; private set; }
     [SerializeField] private GameObject tilePrefab;
-    [SerializeField] private LineRenderer linePrefab; // LineRenderer prefab for drawing path lines
+    [SerializeField] private LineRenderer linePrefab;
     private Dictionary<Vector2Int, Tile> gridTiles = new Dictionary<Vector2Int, Tile>();
 
     private Tile startTile;
@@ -15,7 +15,6 @@ public class GridPathManager : MonoBehaviour
     private List<Tile> currentPath = new List<Tile>();
     private LineRenderer currentLine;
 
-    private bool isDrawing = false;
     private string currentColor = "";
 
 
@@ -76,13 +75,16 @@ public class GridPathManager : MonoBehaviour
         {
             startTile = tile;
             currentColor = tile.DotColor;
-            isDrawing = true;
             currentPath.Clear();
             currentPath.Add(startTile);
 
             currentLine = Instantiate(linePrefab, transform);
+            currentColor = startTile.DotColor;
+            SetLineColor(currentLine, currentColor);
+            Debug.Log("Starting new path with color: " + currentColor);
             currentLine.positionCount = 1;
             currentLine.SetPosition(0, startTile.transform.position);
+            
         }
     }
 
@@ -114,7 +116,6 @@ public class GridPathManager : MonoBehaviour
 
     public void FinishPath()
     {
-        isDrawing = false;
         if (currentPath.Count < 2)
         {
             DestroyCurrentPath();
@@ -124,13 +125,13 @@ public class GridPathManager : MonoBehaviour
         Tile lastTile = currentPath[currentPath.Count - 1];
         if (lastTile.IsDot && lastTile.DotColor == currentColor && lastTile != startTile)
         {
-            // Success! Connected two dots
+            
             GridManager.Instance.ColorsConnected(currentColor);
             Debug.Log("Connected: " + currentColor);
         }
         else
         {
-            // Failed, path invalid
+            Debug.Log("Path not completed or color mismatch.");
             DestroyCurrentPath();
         }
     }
@@ -176,6 +177,41 @@ public class GridPathManager : MonoBehaviour
         for (int i = 0; i < currentPath.Count; i++)
         {
             currentLine.SetPosition(i, currentPath[i].transform.position);
+        }
+    }
+
+    public void RemoveLastPathStep(Tile tile)
+    {
+        if (currentPath.Count < 2) return;
+
+        Tile lastTile = currentPath[currentPath.Count - 1];
+        if (lastTile == tile)
+        {
+            lastTile.IsOccupied = false;
+            currentPath.RemoveAt(currentPath.Count - 1);
+            UpdateLineRenderer();
+        }
+    }
+    private void SetLineColor(LineRenderer currentLine, string color)
+    {
+        if (color == "Blue")
+        {
+            currentLine.startColor = Color.blue;
+            currentLine.endColor = Color.blue;
+        }
+        else if (color == "Green")
+        {
+            currentLine.startColor = Color.green;
+            currentLine.endColor = Color.green;
+        }
+        else if (color == "Red")
+        {
+            currentLine.startColor = Color.red;
+            currentLine.endColor = Color.red;
+        }
+        else
+        {
+            Debug.LogWarning("Unknown color: " + color);
         }
     }
 }

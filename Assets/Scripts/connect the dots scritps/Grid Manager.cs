@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class GridManager : MonoBehaviour
 {
+    private static int lastStage = 2;
+
     public static GridManager Instance { get; private set; }
     [SerializeField]
     private GameObject grid1;
@@ -10,6 +12,7 @@ public class GridManager : MonoBehaviour
     private GameObject grid2;
     [SerializeField]
     private GameObject grid3;
+    private GameObject instantiatedGrid;
     private GameObject blueDot1;
     private GameObject blueDot2;
     private GameObject greedDot1;
@@ -37,7 +40,9 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
-        FindChldrenWithTag(grid1.transform);
+        Debug.Log("GridManager Start called");
+        instantiatedGrid = Instantiate(grid1, transform);
+        FindChldrenWithTag(instantiatedGrid.transform);
         //Instantiate grid
     }
 
@@ -90,26 +95,30 @@ public class GridManager : MonoBehaviour
 
     public void ColorsConnected(string color)
     {
-        if (color == "Blue Dot")
+        Debug.Log("ColorsConnected called with color: " + color);
+        if (color == "Blue")
         {
-            blueDot1.GetComponent<BoxCollider2D>().enabled = false;
-            blueDot2.GetComponent<BoxCollider2D>().enabled = false;
+            Debug.Log("bluedot1 layer is " + blueDot1.layer);
+            blueDot1.layer = LayerMask.NameToLayer("Connected Dots");
+            Debug.Log("bluedot1 layer is " + blueDot1.layer);
+            blueDot2.layer = LayerMask.NameToLayer("Connected Dots");
             connectionsMade++;
-            CheckLoadNextStage();
         }
-        else if (color == "Green Dot")
+        else if (color == "Green")
         {
-            greedDot1.GetComponent<BoxCollider2D>().enabled = false;
-            greedDot2.GetComponent<BoxCollider2D>().enabled = false;
+            Debug.Log("greendot1 layer is " + greedDot1.layer);
+            greedDot1.layer = LayerMask.NameToLayer("Connected Dots");
+            Debug.Log("greendot1 layer is " + greedDot1.layer);
+            greedDot2.layer = LayerMask.NameToLayer("Connected Dots");
             connectionsMade++;
-            CheckLoadNextStage();
         }
-        else if (color == "Red Dot")
+        else if (color == "Red")
         {
-            redDot1.GetComponent<BoxCollider2D>().enabled = false;
-            redDot2.GetComponent<BoxCollider2D>().enabled = false;
+            Debug.Log("reddot1 layer is " + redDot1.layer);
+            redDot1.layer = LayerMask.NameToLayer("Connected Dots");
+            Debug.Log("reddot1 layer is " + redDot1.layer);
+            redDot2.layer = LayerMask.NameToLayer("Connected Dots");
             connectionsMade++;
-            CheckLoadNextStage();
         }
 
     }
@@ -118,53 +127,36 @@ public class GridManager : MonoBehaviour
     {
         if (color == "Blue Dot")
         {
-            blueDot1.GetComponent<BoxCollider2D>().enabled = true;
-            blueDot2.GetComponent<BoxCollider2D>().enabled = true;
+            blueDot1.layer = LayerMask.NameToLayer("Dots");
+            blueDot2.layer = LayerMask.NameToLayer("Dots");
             connectionsMade--;
         }
         else if (color == "Green Dot")
         {
-            greedDot1.GetComponent<BoxCollider2D>().enabled = true;
-            greedDot2.GetComponent<BoxCollider2D>().enabled = true;
+            greedDot1.layer = LayerMask.NameToLayer("Dots");
+            greedDot2.layer = LayerMask.NameToLayer("Dots");
             connectionsMade--;
         }
         else if (color == "Red Dot")
         {
-            redDot1.GetComponent<BoxCollider2D>().enabled = true;
-            redDot2.GetComponent<BoxCollider2D>().enabled = true;
+            redDot1.layer = LayerMask.NameToLayer("Dots");
+            redDot2.layer = LayerMask.NameToLayer("Dots");
             connectionsMade--;
         }
     }
 
     private void CheckLoadNextStage()
     {
-        if (gameState == 0)
+        if(gameState == lastStage)
         {
-            if (connectionsMade == 3)
-            {
-                grid1.SetActive(false);
-                grid2.SetActive(true);
-                gameState = 1;
-                FindChldrenWithTag(grid2.transform);
-            }
+            //load cutscene
         }
-        else if (gameState == 1)
+        else
         {
-            if (connectionsMade == 3)
-            {
-                grid2.SetActive(false);
-                grid3.SetActive(true);
-                gameState = 2;
-                FindChldrenWithTag(grid3.transform);
-            }
-        }
-        else if (gameState == 2)
-        {
-            if (connectionsMade == 3)
-            {
-                // Load next stage or do something else
-            }
+            Destroy(instantiatedGrid);
 
+            gameState++;
+            FindChldrenWithTag(instantiatedGrid.transform);
         }
     }
 }
