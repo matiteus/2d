@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    
     [SerializeField]
     private float movementSpeed = 5f;
     [SerializeField]
@@ -25,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
-        playerControls = new Controls();
         playerControls.Enable();
         playerControls.Movement.Move.performed += InputMovePerformed;
         playerControls.Movement.Move.canceled += InputMoveCanceled;
@@ -83,13 +83,11 @@ public class PlayerMovement : MonoBehaviour
         myAnimator.SetBool("IsMoving", movement.magnitude > 0);
         currentSpeed = movementSpeed;
         CheckFlip(movement.x);
-        Debug.Log("input 1");
     }
     private void InputMoveCanceled(InputAction.CallbackContext context)
     {
         myAnimator.SetBool("IsMoving", false);
         currentSpeed = 0f;
-        Debug.Log("input 0");
     }
 
 

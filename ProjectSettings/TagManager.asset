@@ -5,6 +5,16 @@ TagManager:
   serializedVersion: 3
   tags:
   - interactable
+  - Dot
+  - Green Dot
+  - Red Dot
+  - Blue Dot
+  - Grid
+  - Tile
+  - Line
+  - Green Line
+  - Red Line
+  - Blue Line
   layers:
   - Default
   - TransparentFX
@@ -12,11 +22,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Grid
+  - Tiles
+  - Dots
+  - Line
+  - Player
   - 
   - 
   - 
@@ -45,11 +55,23 @@ TagManager:
   - name: Ground
     uniqueID: 2328366147
     locked: 0
-  - name: Vegetation
+  - name: Tiles
     uniqueID: 868423843
     locked: 0
-  - name: Player
+  - name: Dots
     uniqueID: 678841835
+    locked: 0
+  - name: Line
+    uniqueID: 1912428463
+    locked: 0
+  - name: Player
+    uniqueID: 988279259
     locked: 0
   m_RenderingLayers:
   - Default
+  - Ground
+  - Grid
+  - Tile
+  - Dot
+  - Line
+  - Player
