@@ -127,33 +127,39 @@ public class GridManager : MonoBehaviour
 
     public void LineDestroyed(string color)
     {
-        if (color == "Blue Dot")
+        if (color == "Blue")
         {
             blueDot1.layer = LayerMask.NameToLayer("Dots");
             blueDot2.layer = LayerMask.NameToLayer("Dots");
             connectionsMade--;
         }
-        else if (color == "Green Dot")
+        else if (color == "Green")
         {
             greedDot1.layer = LayerMask.NameToLayer("Dots");
             greedDot2.layer = LayerMask.NameToLayer("Dots");
             connectionsMade--;
         }
-        else if (color == "Red Dot")
+        else if (color == "Red")
         {
             redDot1.layer = LayerMask.NameToLayer("Dots");
             redDot2.layer = LayerMask.NameToLayer("Dots");
             connectionsMade--;
         }
+        DeleteLinePath(color);
+
     }
 
     public void SaveLinePath(List<Tile> linePath, string color)
     {
         paths[color] = linePath;
     }
-    public void DeleteLinePath(string color)
+    private void DeleteLinePath(string color)
     {
-
+        foreach (var path in paths[color])
+        {
+            path.IsOccupied = false;
+            path.Color = "";    
+        }
     }
     private void CheckLoadNextStage()
     {
