@@ -100,7 +100,7 @@ public class GridPathManager : MonoBehaviour
             {
                 if (tile.IsOccupied)
                 {
-                    if(tile.gameObject.CompareTag("Tile With Dot"))
+                    if(tile.gameObject.layer == LayerMask.NameToLayer("Tile With Dot"))
                     {
                         Debug.Log("Tile is occupied by a dot.");
                         DestroyCurrentPath();
