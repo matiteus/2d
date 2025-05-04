@@ -9,8 +9,8 @@ public class HandControl : MonoBehaviour
     public static HandControl Instance { get; private set; }
 
     private bool isDrawing = false;
-    private Tile startTile;
     private List<Tile> currentPath = new List<Tile>();
+    private Tile currentTile;
 
     private void Awake()
     {
@@ -62,54 +62,65 @@ public class HandControl : MonoBehaviour
     {
         Tile tile = GetTileUnderMouse(dotLayer);
 
-        if (tile != null && tile.IsDot)
+        if (tile != null && tile.IsDot) 
         {
-            startTile = tile;
             isDrawing = true;
-            GridPathManager.Instance.StartNewPath(startTile);
+            currentTile = tile;
+            GridPathManager.Instance.StartNewPath(currentTile);
         }
     }
 
     private void TryExtendDrawing()
     {
-        Tile tile = GetTileUnderMouse(tileLayer); // Only check Tiles
-
-        if (tile != null && !currentPath.Contains(tile))
+        Tile tile = GetTileUnderMouse(tileLayer);
+        if(tile!= currentTile && tile)
         {
-            Tile lastTile = currentPath.Count > 0 ? currentPath[currentPath.Count - 1] : startTile;
-
-            if (IsAdjacent(lastTile, tile))
-            {
-                currentPath.Add(tile);
-                GridPathManager.Instance.ExtendPath(tile);
-            }
+            currentTile = tile;
         }
-        else if (currentPath.Count >= 2 && tile == currentPath[currentPath.Count - 2])
+        else
         {
-            // Remove the last tile (we are stepping back)
-            Tile removed = currentPath[currentPath.Count - 1];
-            currentPath.RemoveAt(currentPath.Count - 1);
-
-            GridPathManager.Instance.RemoveLastPathStep(removed);
+            return;
         }
+        GridPathManager.Instance.ExtendPath(currentTile);
+
     }
 
     private void EndDrawing()
     {
         isDrawing = false;
-        GridPathManager.Instance.FinishPath();
-        currentPath.Clear();
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, LayerMask.GetMask("Tiles With Dots"));
+        if (hit)
+        {
+            Tile lastTile = hit.collider.GetComponent<Tile>();
+            GridPathManager.Instance.FinishPath(lastTile);
+        }
+        else
+        {
+            Debug.Log("No tile found.");
+            GridPathManager.Instance.FinishPath(null);
+            currentPath.Clear();
+        }
     }
-
     private Tile GetTileUnderMouse(LayerMask mask)
     {
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, mask);
         if (hit.collider != null)
         {
+            Debug.Log(hit.collider.name);
+            Debug.Log(hit.collider.gameObject.layer);
             if (hit.collider.TryGetComponent(out Dot dot))
-            {
-                return dot.TileUnderneath; 
+            {       
+
+                if (dot.gameObject.layer != LayerMask.NameToLayer("Connected Dots"))
+                {
+                    return dot.TileUnderneath;
+                }
+                else
+                {
+                    Debug.LogWarning("Hit a connected dot.");
+                    return null;
+                }
             }
             else if (hit.collider.TryGetComponent(out Tile tile))
             {
@@ -119,14 +130,11 @@ public class HandControl : MonoBehaviour
         return null;
     }
 
-    private bool IsAdjacent(Tile a, Tile b)
-    {
-        Vector2Int diff = a.GridPosition - b.GridPosition;
-        return (Mathf.Abs(diff.x) == 1 && diff.y == 0) || (Mathf.Abs(diff.y) == 1 && diff.x == 0);
-    }
+    
 
     public void LineDestroyed()
     {
+        Debug.Log("Line destroyed.");
         isDrawing = false;
     }
 }

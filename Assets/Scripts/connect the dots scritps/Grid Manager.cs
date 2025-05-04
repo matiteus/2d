@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GridManager : MonoBehaviour
 {
@@ -22,8 +20,11 @@ public class GridManager : MonoBehaviour
     private GameObject redDot1;
     private GameObject redDot2;
     private Dictionary<string, List<Tile>> paths = new Dictionary<string, List<Tile>>();
+    private Dictionary<string, LineRenderer> lines = new Dictionary<string, LineRenderer>();
     private int connectionsMade = 0;
     private int gameState = 0; // 0 = grid1, 1 = grid2, 2 = grid3
+
+
 
 
     private void Awake()
@@ -43,7 +44,6 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("GridManager Start called");
         instantiatedGrid = Instantiate(grid1, transform);
         FindChldrenWithTag(instantiatedGrid.transform);
     }
@@ -100,29 +100,26 @@ public class GridManager : MonoBehaviour
         Debug.Log("ColorsConnected called with color: " + color);
         if (color == "Blue")
         {
-            Debug.Log("bluedot1 layer is " + blueDot1.layer);
             blueDot1.layer = LayerMask.NameToLayer("Connected Dots");
-            Debug.Log("bluedot1 layer is " + blueDot1.layer);
             blueDot2.layer = LayerMask.NameToLayer("Connected Dots");
             connectionsMade++;
         }
         else if (color == "Green")
         {
-            Debug.Log("greendot1 layer is " + greedDot1.layer);
             greedDot1.layer = LayerMask.NameToLayer("Connected Dots");
-            Debug.Log("greendot1 layer is " + greedDot1.layer);
             greedDot2.layer = LayerMask.NameToLayer("Connected Dots");
             connectionsMade++;
         }
         else if (color == "Red")
         {
-            Debug.Log("reddot1 layer is " + redDot1.layer);
             redDot1.layer = LayerMask.NameToLayer("Connected Dots");
-            Debug.Log("reddot1 layer is " + redDot1.layer);
             redDot2.layer = LayerMask.NameToLayer("Connected Dots");
             connectionsMade++;
         }
-
+        if(connectionsMade == 3)
+        {
+            CheckLoadNextStage();
+        }
     }
 
     public void LineDestroyed(string color)
@@ -149,17 +146,25 @@ public class GridManager : MonoBehaviour
 
     }
 
-    public void SaveLinePath(List<Tile> linePath, string color)
+    public void SaveLinePath(List<Tile> linePath, string color, LineRenderer line)
     {
-        paths[color] = linePath;
+        paths[color] = new List<Tile>(linePath);
+        lines[color] = line;
     }
     private void DeleteLinePath(string color)
     {
+        Debug.Log("DeleteLinePath called with color: " + color);
         foreach (var path in paths[color])
         {
-            path.IsOccupied = false;
-            path.Color = "";    
+            Debug.Log("checking tile " + path.gameObject.name);
+            if (!path.IsDot)
+            {
+                path.IsOccupied = false;
+                path.Color = "";
+            }
+              
         }
+        Destroy(lines[color].gameObject);
     }
     private void CheckLoadNextStage()
     {
@@ -173,6 +178,7 @@ public class GridManager : MonoBehaviour
 
             gameState++;
             connectionsMade = 0;
+            instantiatedGrid = Instantiate(grid2, transform);
             FindChldrenWithTag(instantiatedGrid.transform);
         }
     }

@@ -4,6 +4,8 @@ public class Dot : MonoBehaviour
 {
     private string DotColor;
     public Tile TileUnderneath { get; private set; }
+    [SerializeField]
+    private LayerMask tileLayer;
 
 
     private void Awake()
@@ -28,15 +30,14 @@ public class Dot : MonoBehaviour
     }
     private void Start()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down,  LayerMask.GetMask("Tile")); // Only hit Tile layer
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down,  tileLayer); // Only hit Tile layer
         if (hit.collider != null)
         { 
             TileUnderneath = hit.collider.GetComponent<Tile>();
             if (TileUnderneath != null)
             {
                 TileUnderneath.IsDot = true;
-                TileUnderneath.DotColor = DotColor;
-                TileUnderneath.gameObject.layer = LayerMask.NameToLayer("Tile With Dot");
+                TileUnderneath.dotColor = DotColor;
                 TileUnderneath.IsOccupied = true;
             }
             else

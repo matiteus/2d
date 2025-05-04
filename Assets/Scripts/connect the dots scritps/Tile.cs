@@ -6,5 +6,5 @@ public class Tile : MonoBehaviour
     public bool IsOccupied = false;
     public string Color = "";
     public bool IsDot = false;
-    public string DotColor = "";
+    public string dotColor = "";
 }

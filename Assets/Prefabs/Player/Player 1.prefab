@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3863749951032266156}
   - component: {fileID: 8817788287584397922}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Player 1
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -45,7 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae3f1649e61ce2f4886ff3392dc9c1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linePrefab: {fileID: 9071034912027032013, guid: 3628a894b70547d4fb5b261679bf897a, type: 3}
+  dotLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  tileLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &6425698857547699956
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +61,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8035418122524606429}
   - component: {fileID: 4798848446945404333}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Hand
   m_TagString: Player
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}

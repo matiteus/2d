@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2240876295144759763}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 1152454194650508587}
   - component: {fileID: 2844054696935517872}
   - component: {fileID: 5891359115354246262}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Green Dot
   m_TagString: Green Dot
   m_Icon: {fileID: 0}
@@ -179,3 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc5e90394df302b46a8cb4c105fadbb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileLayer:
+    serializedVersion: 2
+    m_Bits: 128

@@ -8,10 +8,8 @@ public class GridPathManager : MonoBehaviour
     public static GridPathManager Instance { get; private set; }
     [SerializeField] private GameObject tilePrefab;
     [SerializeField] private LineRenderer linePrefab;
-    private Dictionary<Vector2Int, Tile> gridTiles = new Dictionary<Vector2Int, Tile>();
 
     private Tile startTile;
-    private Tile endTile;
     private List<Tile> currentPath = new List<Tile>();
     private LineRenderer currentLine;
 
@@ -43,14 +41,6 @@ public class GridPathManager : MonoBehaviour
                 {
                     tile.GridPosition = new Vector2Int(x, y);
 
-                    if (!gridTiles.ContainsKey(tile.GridPosition))
-                    {
-                        gridTiles.Add(tile.GridPosition, tile);
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"Duplicate grid position detected at {tile.GridPosition} for tile {tile.gameObject.name}");
-                    }
                 }
                 else
                 {
@@ -66,49 +56,50 @@ public class GridPathManager : MonoBehaviour
 
 
 
-    public void StartNewPath(Tile startTile)
+    public void StartNewPath(Tile tile)
     {
-        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        Tile tile = GetTileUnderPosition(mouseWorldPos);
+        
+        startTile = tile;
+        currentColor = tile.dotColor;
+        currentPath.Clear();
+        currentPath.Add(startTile);
 
-        if (tile != null && tile.IsDot)
-        {
-            startTile = tile;
-            currentColor = tile.DotColor;
-            currentPath.Clear();
-            currentPath.Add(startTile);
-
-            currentLine = Instantiate(linePrefab, transform);
-            currentColor = startTile.DotColor;
-            SetLineColor(currentLine, currentColor);
-            Debug.Log("Starting new path with color: " + currentColor);
-            currentLine.positionCount = 1;
-            currentLine.SetPosition(0, startTile.transform.position);
+        currentLine = Instantiate(linePrefab, transform);
+        currentColor = startTile.dotColor;
+        SetLineColor(currentLine, currentColor);
+        Debug.Log("Starting new path with color: " + currentColor);
+        currentLine.positionCount = 1;
+        currentLine.SetPosition(0, startTile.transform.position);
             
-        }
     }
 
-    public void ExtendPath(Tile nextTile)
+    public void ExtendPath(Tile tile)
     {
-        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        Tile tile = GetTileUnderPosition(mouseWorldPos);
-
-        if (tile != null && !currentPath.Contains(tile))
+        if (!currentPath.Contains(tile))
         {
             Tile lastTile = currentPath[currentPath.Count - 1];
             if (IsAdjacent(lastTile.GridPosition, tile.GridPosition))
             {
                 if (tile.IsOccupied)
                 {
-                    if(tile.gameObject.layer == LayerMask.NameToLayer("Tile With Dot"))
+                    if (tile.IsDot)
                     {
-                        Debug.Log("Tile is occupied by a dot.");
-                        DestroyCurrentPath();
+                        if (currentColor != tile.dotColor)
+                        {
+                            DestroyCurrentPath();
+                        }
+                        else
+                        {
+                            currentPath.Add(tile);
+                            tile.IsOccupied = true;
+                            tile.Color = currentColor;
+                            UpdateLineRenderer();
+                        }
                     }
                     else
                     {
-                        Debug.Log("Tile is occupied by another path.");
-                        GridManager.Instance.LineDestroyed(tile.DotColor);
+
+                        GridManager.Instance.LineDestroyed(tile.Color);
                         DestroyCurrentPath();
                     }
                     
@@ -122,28 +113,40 @@ public class GridPathManager : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            RemoveLastPathStep(tile);
+        }
     }
 
-    public void FinishPath()
-    {
-        if (currentPath.Count < 2)
+        public void FinishPath(Tile lastTile)
         {
-            DestroyCurrentPath();
-            return;
-        }
-
-        Tile lastTile = currentPath[currentPath.Count - 1];
-        if (lastTile.IsDot && lastTile.DotColor == currentColor && lastTile != startTile)
+        if (lastTile)
         {
-            GridManager.Instance.SaveLinePath(currentPath, currentColor);
-            GridManager.Instance.ColorsConnected(currentColor);
-            Debug.Log("Connected: " + currentColor);
+            if (lastTile.IsDot && lastTile.dotColor == currentColor && lastTile != startTile)
+            {
+                Debug.Log(lastTile.name);
+                
+                if (!startTile)
+                {
+                }
+                else
+                {
+                }
+                    UpdateLineRenderer();
+                GridManager.Instance.SaveLinePath(currentPath, currentColor,currentLine);
+                GridManager.Instance.ColorsConnected(currentColor);
+            }
+            else
+            {
+                DestroyCurrentPath();
+            }
         }
         else
         {
-            Debug.Log("Path not completed or color mismatch.");
             DestroyCurrentPath();
-        }
+        }       
+
     }
 
     private void DestroyCurrentPath()
@@ -161,15 +164,6 @@ public class GridPathManager : MonoBehaviour
         currentPath.Clear();
     }
 
-    private Tile GetTileUnderPosition(Vector2 position)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(position, Vector2.zero);
-        if (hit.collider != null)
-        {
-            return hit.collider.GetComponent<Tile>();
-        }
-        return null;
-    }
 
     private bool IsAdjacent(Vector2Int a, Vector2Int b)
     {
@@ -178,6 +172,7 @@ public class GridPathManager : MonoBehaviour
 
     private void UpdateLineRenderer()
     {
+        if(!currentLine) currentLine = Instantiate(linePrefab, transform);
         currentLine.positionCount = currentPath.Count;
         for (int i = 0; i < currentPath.Count; i++)
         {
@@ -187,16 +182,23 @@ public class GridPathManager : MonoBehaviour
 
     public void RemoveLastPathStep(Tile tile)
     {
-        if (currentPath.Count < 2) return;
 
-        Tile lastTile = currentPath[currentPath.Count - 1];
+        Tile lastTile = currentPath[currentPath.Count - 2];
         if (lastTile == tile)
         {
-            lastTile.IsOccupied = false;
-            lastTile.Color = "";
-            currentPath.RemoveAt(currentPath.Count - 1);
+            Tile removedTile = currentPath[currentPath.Count - 1];
+            removedTile.IsOccupied = false;
+            removedTile.Color = "";
+            currentPath.Remove(removedTile);
             UpdateLineRenderer();
         }
+    }
+
+    public void RestartPath(Tile startTile, Tile removedTile)
+    {
+        Destroy(currentLine.gameObject);
+        StartNewPath(startTile);
+
     }
     private void SetLineColor(LineRenderer currentLine, string color)
     {
