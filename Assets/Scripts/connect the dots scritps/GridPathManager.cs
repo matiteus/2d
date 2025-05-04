@@ -100,9 +100,18 @@ public class GridPathManager : MonoBehaviour
             {
                 if (tile.IsOccupied)
                 {
-                    // If the tile already has a path, paths cross -> destroy both
-                    GridManager.Instance.LineDestroyed(tile.DotColor);
-                    DestroyCurrentPath();
+                    if(tile.gameObject.CompareTag("Tile With Dot"))
+                    {
+                        Debug.Log("Tile is occupied by a dot.");
+                        DestroyCurrentPath();
+                    }
+                    else
+                    {
+                        Debug.Log("Tile is occupied by another path.");
+                        GridManager.Instance.LineDestroyed(tile.DotColor);
+                        DestroyCurrentPath();
+                    }
+                    
                 }
                 else
                 {

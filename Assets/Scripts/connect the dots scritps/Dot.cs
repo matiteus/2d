@@ -36,6 +36,8 @@ public class Dot : MonoBehaviour
             {
                 TileUnderneath.IsDot = true;
                 TileUnderneath.DotColor = DotColor;
+                TileUnderneath.gameObject.layer = LayerMask.NameToLayer("Tile With Dot");
+                TileUnderneath.IsOccupied = true;
             }
             else
             {
