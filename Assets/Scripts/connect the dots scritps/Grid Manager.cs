@@ -1,30 +1,27 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GridManager : MonoBehaviour
 {
-    private static int lastStage = 2;
 
     public static GridManager Instance { get; private set; }
     [SerializeField]
-    private GameObject grid1;
+    private int nextScene = 4;
     [SerializeField]
-    private GameObject grid2;
+    private int lastStage = 2;
     [SerializeField]
-    private GameObject grid3;
+    private List<string> colors = new List<string> { "Blue", "Green", "Red" };
+    private Dictionary<string, List<GameObject>> dotsColor = new Dictionary<string, List<GameObject>>();
+    [SerializeField]
+    private List<GameObject> grids = new List<GameObject>();
     private GameObject instantiatedGrid;
-    private GameObject blueDot1;
-    private GameObject blueDot2;
-    private GameObject greedDot1;
-    private GameObject greedDot2;
-    private GameObject redDot1;
-    private GameObject redDot2;
     private Dictionary<string, List<Tile>> paths = new Dictionary<string, List<Tile>>();
     private Dictionary<string, LineRenderer> lines = new Dictionary<string, LineRenderer>();
     private int connectionsMade = 0;
     private int gameState = 0; // 0 = grid1, 1 = grid2, 2 = grid3
-
-
 
 
     private void Awake()
@@ -44,104 +41,62 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
-        instantiatedGrid = Instantiate(grid1, transform);
-        FindChldrenWithTag(instantiatedGrid.transform);
+        instantiatedGrid = Instantiate(grids[gameState], transform);
+        FindChildrenWithTag(instantiatedGrid.transform);
     }
 
-    private void FindChldrenWithTag(Transform grid)
+    private void FindChildrenWithTag(Transform grid)
     {
-        bool foundBlue = false;
-        bool foundGreen = false;
-        bool foundRed = false;
+        dotsColor.Clear();
+
+        foreach (string color in colors)
+        {
+            dotsColor[color] = new List<GameObject>(2); 
+        }
 
         foreach (Transform child in grid)
         {
-            if (child.CompareTag("Blue Dot"))
+            foreach (string color in colors)
             {
-                if (!foundBlue)
+                if (child.CompareTag(color))
                 {
-                    blueDot1 = child.gameObject;
-                    foundBlue = true;
-                }
-                else
-                {
-                    blueDot2 = child.gameObject;
-                }
-            }
-            else if (child.CompareTag("Green Dot"))
-            {
-                if (!foundGreen)
-                {
-                    greedDot1 = child.gameObject;
-                    foundGreen = true;
-                }
-                else
-                {
-                    greedDot2 = child.gameObject;
-                }
-            }
-            else if (child.CompareTag("Red Dot"))
-            {
-                if (!foundRed)
-                {
-                    redDot1 = child.gameObject;
-                    foundRed = true;
-                }
-                else
-                {
-                    redDot2 = child.gameObject;
+                    var colorList = dotsColor[color];
+                    if (colorList.Count < 2)
+                    {
+                        colorList.Add(child.gameObject);
+                    }
+                    break;
                 }
             }
         }
     }
 
+    //grid manager
     public void ColorsConnected(string color)
     {
-        Debug.Log("ColorsConnected called with color: " + color);
-        if (color == "Blue")
+
+        foreach (GameObject dot in dotsColor[color])
         {
-            blueDot1.layer = LayerMask.NameToLayer("Connected Dots");
-            blueDot2.layer = LayerMask.NameToLayer("Connected Dots");
-            connectionsMade++;
+            dot.layer = LayerMask.NameToLayer("Connected Dots");
         }
-        else if (color == "Green")
-        {
-            greedDot1.layer = LayerMask.NameToLayer("Connected Dots");
-            greedDot2.layer = LayerMask.NameToLayer("Connected Dots");
-            connectionsMade++;
-        }
-        else if (color == "Red")
-        {
-            redDot1.layer = LayerMask.NameToLayer("Connected Dots");
-            redDot2.layer = LayerMask.NameToLayer("Connected Dots");
-            connectionsMade++;
-        }
-        if(connectionsMade == 3)
+
+        connectionsMade++;
+
+        if (connectionsMade == colors.Count)
         {
             CheckLoadNextStage();
         }
     }
 
+
     public void LineDestroyed(string color)
     {
-        if (color == "Blue")
+        foreach (GameObject dot in dotsColor[color])
         {
-            blueDot1.layer = LayerMask.NameToLayer("Dots");
-            blueDot2.layer = LayerMask.NameToLayer("Dots");
-            connectionsMade--;
+            dot.layer = LayerMask.NameToLayer("Dots");
         }
-        else if (color == "Green")
-        {
-            greedDot1.layer = LayerMask.NameToLayer("Dots");
-            greedDot2.layer = LayerMask.NameToLayer("Dots");
-            connectionsMade--;
-        }
-        else if (color == "Red")
-        {
-            redDot1.layer = LayerMask.NameToLayer("Dots");
-            redDot2.layer = LayerMask.NameToLayer("Dots");
-            connectionsMade--;
-        }
+
+        connectionsMade--;
         DeleteLinePath(color);
 
     }
@@ -157,10 +112,10 @@ public class GridManager : MonoBehaviour
         foreach (var path in paths[color])
         {
             Debug.Log("checking tile " + path.gameObject.name);
-            if (!path.IsDot)
+            if (!path.GetIsDot())
             {
-                path.IsOccupied = false;
-                path.Color = "";
+                path.SetIsOccupied(false);
+                path.SetColor("");
             }
               
         }
@@ -168,20 +123,22 @@ public class GridManager : MonoBehaviour
     }
     private void CheckLoadNextStage()
     {
-        if(gameState == lastStage)
+        gameState++;
+        Destroy(instantiatedGrid);
+        StartCoroutine(LoadNextGrid());
+        if (gameState == lastStage)
         {
-            //load cutscene
-        }
-        else
-        {
-            Destroy(instantiatedGrid);
-
-            gameState++;
-            connectionsMade = 0;
-            instantiatedGrid = Instantiate(grid2, transform);
-            FindChldrenWithTag(instantiatedGrid.transform);
+            SceneLoader.Instance.SetGameStage(nextScene);
         }
     }
+    private IEnumerator LoadNextGrid()
+    {
+        yield return new WaitForSeconds(0.5f);
+        connectionsMade = 0;
+        instantiatedGrid = Instantiate(grids[gameState], transform);
+        FindChildrenWithTag(instantiatedGrid.transform);
+    }
+    
 }
 
    

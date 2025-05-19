@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5157798064309819089}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 739981407025924039}
   - component: {fileID: 5943994234672582644}
   - component: {fileID: 1897665290902451491}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Red Dot
-  m_TagString: Red Dot
+  m_TagString: Red
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +60,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.31, y: -0.12, z: 0}
-  m_LocalScale: {x: 0.93, y: 0.93, z: 0.93}
+  m_LocalScale: {x: 1.1625, y: 1.1625, z: 1.1625}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5157798064309819089}
@@ -181,4 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 512
+  tileWithDotLayer:
+    serializedVersion: 2
+    m_Bits: 1024

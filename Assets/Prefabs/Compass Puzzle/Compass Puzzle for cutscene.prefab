@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8711559178867215370
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4399622374585246960, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+      propertyPath: m_Name
+      value: Compass Puzzle for cutscene
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368537921371852634, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 92.36955
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368537921371852634, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 55.15118
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368537921371852634, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368537921371852634, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368537921371852634, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368537921371852634, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368537921371852634, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368537921371852634, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368537921371852634, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368537921371852634, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2780412166947804928, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2404087717819997292}
+  m_SourcePrefab: {fileID: 100100000, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+--- !u!114 &51123439875524978 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8669443119753102712, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+  m_PrefabInstance: {fileID: 8711559178867215370}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805975638792837898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c22d90b7f5bb2ec4886fc448b938bc2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6805975638792837898 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2780412166947804928, guid: 4f83dfe1ac49c084a917895833e04824, type: 3}
+  m_PrefabInstance: {fileID: 8711559178867215370}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2404087717819997292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805975638792837898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5533735b0115ab349b6ffbd8c73502b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  compassManager: {fileID: 51123439875524978}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1108162566696933106}
   - component: {fileID: 6826419505508543118}
   - component: {fileID: 365972003965498738}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Tile
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -149,5 +149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridPosition: {x: 0, y: 0}
   IsOccupied: 0
+  Color: 
   IsDot: 0
-  DotColor: 
+  dotColor: 

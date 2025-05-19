@@ -3,9 +3,14 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using System;
+using System.Linq;
+using System.Collections;
+
 
 public class DialogueControllerScript : MonoBehaviour
 {
+    public static DialogueControllerScript Instance { get; private set; } = null;
+    [SerializeField] private GameObject dialogueBox;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI dialogueTextUI;
 
@@ -14,10 +19,24 @@ public class DialogueControllerScript : MonoBehaviour
     private Controls controls;
     private Queue<string> sentences;
     private bool conversationEnded = true;
+    //for some reason sometimes the interaction input triggers the next sentence on the dialogue, so this will wait for the next frame to allow input when dialogue starts
+    private bool inputAllowed = false;
+
+
 
     private void Awake()
     {
-        sentences = new Queue<string>();
+        Debug.Log("DialogueControllerScript Awake");
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        if (sentences == null)
+            sentences = new Queue<string>();
     }
 
     private void OnEnable()
@@ -35,8 +54,9 @@ public class DialogueControllerScript : MonoBehaviour
 
     public void StartConversation(DialogueText dialogueText)
     {
-        if (!gameObject.activeSelf)
-            gameObject.SetActive(true);
+        inputAllowed = false;
+        if (!dialogueBox.activeSelf)
+            dialogueBox.SetActive(true);
 
         nameText.text = dialogueText.characterName;
         dialogueTextUI.text = "";
@@ -48,8 +68,15 @@ public class DialogueControllerScript : MonoBehaviour
         {
             sentences.Enqueue(line);
         }
-
+        Debug.Log("Sentences count: " + sentences.Count);
         DisplayNextSentence();
+        StartCoroutine(EnableInputNextFrame());
+    }
+
+    private IEnumerator EnableInputNextFrame()
+    {
+        yield return null;
+        inputAllowed = true;
     }
 
     private void DisplayNextSentence()
@@ -70,7 +97,7 @@ public class DialogueControllerScript : MonoBehaviour
         conversationEnded = true;
         dialogueTextUI.text = "";
         nameText.text = "";
-        gameObject.SetActive(false);
+        dialogueBox.SetActive(false);
 
         OnConversationEnded?.Invoke();
     }
@@ -78,9 +105,13 @@ public class DialogueControllerScript : MonoBehaviour
 
     private void OnContinueInput(InputAction.CallbackContext context)
     {
-        if (!gameObject.activeSelf || conversationEnded)
+
+        if (!gameObject.activeSelf || conversationEnded || !inputAllowed)
             return;
 
         DisplayNextSentence();
     }
+
+
 }
+

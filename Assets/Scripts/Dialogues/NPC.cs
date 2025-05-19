@@ -1,35 +1,47 @@
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public abstract class NPC : MonoBehaviour, IInteractable
+public abstract class NPC : Dialogue, IInteractable
 {
     [SerializeField] private SpriteRenderer interactSprite;
-    [SerializeField] private float interactDistance = 5f;
-    [SerializeField] private Transform player;
+    [SerializeField] private DialogueText dialogueText;
 
-
-
-    // Update is called once per frame
-    void  FixedUpdate()
+    private float timeToWaitForCutscene = 1f;
+    protected abstract bool hasInteracted { get; set; }
+    protected override bool isDialoguePlaying
     {
-        if(Keyboard.current.eKey.wasPressedThisFrame && !IsWithinInteractDistance())
+        get => hasInteracted;
+        set => hasInteracted = value;
+    }
+
+    public void Interact()
+    {
+        PlayerControls.Instance.DisableMovement();
+        hasInteracted = true;
+        PlayerControls.Instance.DisableMovement();
+        Talk(dialogueText);
+    }
+
+    protected IEnumerator LoadNextScene(int cutscene)
+    {
+        yield return new WaitForSeconds(timeToWaitForCutscene);
+        SceneManager.LoadSceneAsync(cutscene);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
         {
-            Interact();
-        }
-        if (interactSprite.gameObject.activeSelf && !IsWithinInteractDistance())
-        {
-            interactSprite.gameObject.SetActive(false);
-        }
-        else if(!interactSprite.gameObject.activeSelf && IsWithinInteractDistance())
-        {
-            interactSprite.gameObject.SetActive(true);
+            interactSprite.enabled = true;
         }
     }
-    public abstract void Interact();
-
-    private bool IsWithinInteractDistance()
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        return Vector2.Distance(player.position, transform.position) < interactDistance;
+        if (collision.CompareTag("Player"))
+        {
+            interactSprite.enabled = false;
+        }
     }
+
 }

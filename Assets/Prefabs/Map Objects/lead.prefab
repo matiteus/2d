@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4344614137936921872}
   - component: {fileID: 7414141895723526429}
   - component: {fileID: 6702291871976843783}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Interact
   m_TagString: interactable
   m_Icon: {fileID: 0}
@@ -146,9 +146,9 @@ GameObject:
   - component: {fileID: 4455409609358571496}
   - component: {fileID: 8751333385775883019}
   - component: {fileID: 1235145809822984682}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: lead
-  m_TagString: Untagged
+  m_TagString: interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,8 +256,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 988279259
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 1378389352493218004, guid: 659dbc620a07e3548bc220d8b06c1436, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

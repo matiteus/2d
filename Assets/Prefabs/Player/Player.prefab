@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2847548106528274833}
   - component: {fileID: 1130124217019202258}
   - component: {fileID: 6401479301110533560}
-  m_Layer: 1
+  m_Layer: 15
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -78,8 +78,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 868423843
-  m_SortingLayer: 2
+  m_SortingLayerID: 988279259
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: -1686860395, guid: ce3fd89269323cc4ab97812a88d3bc66, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 8768928945635113091}
   - component: {fileID: 2368439634306255173}
   - component: {fileID: 8140174248109930340}
-  m_Layer: 1
+  m_Layer: 15
   m_Name: Interact Bubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}

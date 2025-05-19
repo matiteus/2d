@@ -10,35 +10,21 @@ public class Dot : MonoBehaviour
 
     private void Awake()
     {
-        // Set the color of the dot based on its name
-        if (gameObject.name.Contains("Blue"))
-        {
-            DotColor = "Blue";
-        }
-        else if (gameObject.name.Contains("Green"))
-        {
-            DotColor = "Green";
-        }
-        else if (gameObject.name.Contains("Red"))
-        {
-            DotColor = "Red";
-        }
-        else
-        {
-            DotColor = "Unknown";
-        }
+        DotColor = gameObject.tag;
     }
+    //dot script
     private void Start()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down,  tileLayer); // Only hit Tile layer
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down,1f,  tileLayer);
         if (hit.collider != null)
         { 
             TileUnderneath = hit.collider.GetComponent<Tile>();
             if (TileUnderneath != null)
             {
-                TileUnderneath.IsDot = true;
-                TileUnderneath.dotColor = DotColor;
-                TileUnderneath.IsOccupied = true;
+                TileUnderneath.SetIsDot(true);
+                TileUnderneath.SetDotColor(DotColor);
+                TileUnderneath.SetIsOccupied(true);
+                TileUnderneath.gameObject.layer = LayerMask.NameToLayer("Tiles With Dots");
             }
             else
             {

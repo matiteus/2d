@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GridPathManager : MonoBehaviour
 {
@@ -24,6 +23,7 @@ public class GridPathManager : MonoBehaviour
         }
         else
         {
+            Debug.LogWarning("Multiple instances of GridPathManager detected. Destroying duplicate.");
             Destroy(gameObject);
         }
     }
@@ -39,7 +39,8 @@ public class GridPathManager : MonoBehaviour
                 int x, y;
                 if (int.TryParse(parts[0], out x) && int.TryParse(parts[1], out y))
                 {
-                    tile.GridPosition = new Vector2Int(x, y);
+                    Vector2Int pos = new Vector2Int(x, y);
+                    tile.SetGridPosition(pos);
 
                 }
                 else
@@ -55,22 +56,22 @@ public class GridPathManager : MonoBehaviour
     }
 
 
-
+    //grid path manager
     public void StartNewPath(Tile tile)
     {
-        
+
         startTile = tile;
-        currentColor = tile.dotColor;
+        currentColor = tile.GetDotColor();
         currentPath.Clear();
         currentPath.Add(startTile);
 
         currentLine = Instantiate(linePrefab, transform);
-        currentColor = startTile.dotColor;
+        currentColor = startTile.GetDotColor();
         SetLineColor(currentLine, currentColor);
         Debug.Log("Starting new path with color: " + currentColor);
         currentLine.positionCount = 1;
         currentLine.SetPosition(0, startTile.transform.position);
-            
+
     }
 
     public void ExtendPath(Tile tile)
@@ -78,37 +79,37 @@ public class GridPathManager : MonoBehaviour
         if (!currentPath.Contains(tile))
         {
             Tile lastTile = currentPath[currentPath.Count - 1];
-            if (IsAdjacent(lastTile.GridPosition, tile.GridPosition))
+            if (IsAdjacent(lastTile.GetGridPosition(), tile.GetGridPosition()))
             {
-                if (tile.IsOccupied)
+                if (tile.GetIsOccupied())
                 {
-                    if (tile.IsDot)
+                    if (tile.GetIsDot())
                     {
-                        if (currentColor != tile.dotColor)
+                        if (currentColor != tile.GetDotColor())
                         {
                             DestroyCurrentPath();
                         }
                         else
                         {
                             currentPath.Add(tile);
-                            tile.IsOccupied = true;
-                            tile.Color = currentColor;
+                            tile.SetIsOccupied(true);
+                            tile.SetColor(currentColor);
                             UpdateLineRenderer();
                         }
                     }
                     else
                     {
 
-                        GridManager.Instance.LineDestroyed(tile.Color);
+                        GridManager.Instance.LineDestroyed(tile.GetColor());
                         DestroyCurrentPath();
                     }
-                    
+
                 }
                 else
                 {
                     currentPath.Add(tile);
-                    tile.IsOccupied = true;
-                    tile.Color = currentColor;
+                    tile.SetIsOccupied(true);
+                    tile.SetColor(currentColor);
                     UpdateLineRenderer();
                 }
             }
@@ -119,22 +120,21 @@ public class GridPathManager : MonoBehaviour
         }
     }
 
-        public void FinishPath(Tile lastTile)
-        {
+    public void FinishPath(Tile lastTile)
+    {
         if (lastTile)
         {
-            if (lastTile.IsDot && lastTile.dotColor == currentColor && lastTile != startTile)
+            if (lastTile.GetIsDot() && lastTile.GetDotColor() == currentColor && lastTile != startTile)
             {
-                Debug.Log(lastTile.name);
-                
+
                 if (!startTile)
                 {
                 }
                 else
                 {
                 }
-                    UpdateLineRenderer();
-                GridManager.Instance.SaveLinePath(currentPath, currentColor,currentLine);
+                UpdateLineRenderer();
+                GridManager.Instance.SaveLinePath(currentPath, currentColor, currentLine);
                 GridManager.Instance.ColorsConnected(currentColor);
             }
             else
@@ -145,7 +145,7 @@ public class GridPathManager : MonoBehaviour
         else
         {
             DestroyCurrentPath();
-        }       
+        }
 
     }
 
@@ -154,8 +154,8 @@ public class GridPathManager : MonoBehaviour
         HandControl.Instance.LineDestroyed();
         foreach (Tile tile in currentPath)
         {
-            tile.IsOccupied = false;
-            tile.Color = "";
+            tile.SetIsOccupied(false);
+            tile.SetColor("");
         }
         if (currentLine != null)
         {
@@ -172,7 +172,7 @@ public class GridPathManager : MonoBehaviour
 
     private void UpdateLineRenderer()
     {
-        if(!currentLine) currentLine = Instantiate(linePrefab, transform);
+        if (!currentLine) currentLine = Instantiate(linePrefab, transform);
         currentLine.positionCount = currentPath.Count;
         for (int i = 0; i < currentPath.Count; i++)
         {
@@ -187,8 +187,8 @@ public class GridPathManager : MonoBehaviour
         if (lastTile == tile)
         {
             Tile removedTile = currentPath[currentPath.Count - 1];
-            removedTile.IsOccupied = false;
-            removedTile.Color = "";
+            removedTile.SetIsOccupied(false);
+            removedTile.SetColor("");
             currentPath.Remove(removedTile);
             UpdateLineRenderer();
         }
@@ -221,5 +221,14 @@ public class GridPathManager : MonoBehaviour
         {
             Debug.LogWarning("Unknown color: " + color);
         }
+
     }
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
+
 }
