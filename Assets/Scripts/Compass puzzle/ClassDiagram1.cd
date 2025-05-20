@@ -1,162 +1,76 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="PlayerCutscene1">
-    <Position X="1.75" Y="1.25" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAAAAAAACCAAAAAAIAEAAAAAACAA=</HashCode>
-      <FileName>Assets\Scripts\Cutscene 1\PlayerCutscene1.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="CopCutsceneScript">
-    <Position X="5" Y="1.25" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>IAAAABAAAAAAAAAAAAAAAAAQACAAAAAAAAQAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Cutscene\Cop Cutscene Script.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DialogueControllerScript">
-    <Position X="8.25" Y="1" Width="3.5" />
-    <TypeIdentifier>
-      <HashCode>AABAAAACCAAAAAAIAAASAAAAAAAABCAIQAACgAIACUQ=</HashCode>
-      <FileName>Assets\Scripts\Dialogues\DialogueControllerScript.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PlayerControls">
-    <Position X="12.5" Y="3" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>gAATBAgAAggGAAAEAAAAAAEAAAgBABBIUAAAgAAAIEA=</HashCode>
-      <FileName>Assets\Scripts\Player Scripts\Player\PlayerContols.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PlayerInteractableHandler">
-    <Position X="4.5" Y="6" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Player Scripts\Player\PlayerInteractableHandler.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="CrowScript">
-    <Position X="1.5" Y="6.5" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>ACCAAAAAAAQAAAAAgQBAQAAACFQAEAYEgBAAAAAKAEA=</HashCode>
-      <FileName>Assets\Scripts\Scene 1 Scripts\Crow Scripts\CrowScript.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ColliderChecks">
-    <Position X="4.75" Y="7.75" Width="3.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Player Scripts\Player\Collider Checks.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="LeadInteractable">
-    <Position X="10.5" Y="9.5" Width="3" />
-    <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAAAAAACAAAAAACBAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Scene 1 Scripts\LeadInteractable.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="NPC">
-    <Position X="7.75" Y="10" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAACgAQAAAAAQAAAAAAAAIEAAAABAgAQAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Dialogues\NPC.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="TabletIcon">
-    <Position X="3.75" Y="14" Width="3.25" />
-    <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAAAAAAAgIAAAgAAAAQAAAAAAAAEg=</HashCode>
-      <FileName>Assets\Scripts\Scene 2 Scripts\Scene 2 Game Manager.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Dot">
-    <Position X="7.5" Y="13.5" Width="1.5" />
+    <Position X="8.25" Y="5.75" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACBAAAAAAAAAAAAAAIAAAAAAAAAAAAEAAEA=</HashCode>
       <FileName>Assets\Scripts\connect the dots scritps\Dot.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GridManager">
-    <Position X="7.75" Y="16.5" Width="3.25" />
+    <Position X="12.5" Y="5.75" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>EAAIgAAQASBAQAAAAgAAAAAQIAKIACCAQAEgABAAAEA=</HashCode>
+      <HashCode>EAAIgAAQASBAQAAAAgAAAAAAIAKIACCAQAEgABAAAEA=</HashCode>
       <FileName>Assets\Scripts\connect the dots scritps\Grid Manager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GridPathManager">
-    <Position X="12" Y="14.25" Width="3.25" />
+    <Position X="7.25" Y="8.75" Width="4.25" />
     <TypeIdentifier>
       <HashCode>AAABAEUAACABCCAAAAoIAAAAlBAAAAAEQAEAAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\connect the dots scritps\GridPathManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Tile">
-    <Position X="9.75" Y="13.75" Width="1.5" />
+    <Position X="16.5" Y="5.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACgAEACAEAAiAAIAiCAAgAAAAAAJA=</HashCode>
       <FileName>Assets\Scripts\connect the dots scritps\Tile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HandControl">
-    <Position X="3.25" Y="17.25" Width="2.75" />
+    <Position X="12" Y="11.75" Width="5" />
     <TypeIdentifier>
-      <HashCode>AAAIADAAAiBCgCAAQBAAAAAhAACAACAIQQAAAAAACGA=</HashCode>
+      <HashCode>AAAIADAAAiBCgAAAABAAAAAhAACAACAIQQAAAAAACGA=</HashCode>
       <FileName>Assets\Scripts\Player Scripts\Hand\HandControl.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Letter">
-    <Position X="11.25" Y="20.25" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAgAAAAAAAAAKAQAAAAIAGAAAAAACAA=</HashCode>
-      <FileName>Assets\Scripts\Scene 2 Scripts\Letter.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="CompassManager">
-    <Position X="11" Y="24.25" Width="3" />
+    <Position X="10.25" Y="20.5" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>QAAAAACIAAAAIAAAAAAAAQIAABAABAAAQAAAAAAAAEA=</HashCode>
+      <HashCode>QAAAAACIAAAAIAAAAAAAAQICABAABCAAQAAAAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\Compass puzzle\Compass Manager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CompassPuzzleManager">
-    <Position X="4" Y="24.25" Width="3" />
+    <Position X="13.75" Y="18.25" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAIAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
       <FileName>Assets\Scripts\Compass puzzle\Compass Puzzle Manager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScriptforCompassCutscene">
-    <Position X="7.5" Y="24" Width="2.75" />
+    <Position X="7.5" Y="19" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\Compass puzzle\Script for Compass Cutscene.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Torch" BaseTypeListCollapsed="true">
-    <Position X="5.5" Y="27" Width="3.25" />
+    <Position X="10.25" Y="17.75" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAgAAAIAAAAACAAAAAAAAACEA=</HashCode>
       <FileName>Assets\Scripts\Compass puzzle\Torch.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="ITalkable">
-    <Position X="2" Y="4.25" Width="1.5" />
+  <Class Name="Interactable">
+    <Position X="10.25" Y="2" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Dialogues\ITalkable.cs</FileName>
+      <HashCode>AAAAAACgAQAAAAAQAAAAAAAAIEAAAABAgAQAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dialogues\Interactable.cs</FileName>
     </TypeIdentifier>
-  </Interface>
-  <Interface Name="IInteractable">
-    <Position X="4.25" Y="4.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\Dialogues\IInteractable.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
+    <Lollipop Position="0.2" />
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

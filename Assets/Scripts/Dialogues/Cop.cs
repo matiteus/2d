@@ -1,4 +1,4 @@
-public class Cop : NPC
+public class Cop : Interactable
 {
 
     private bool hasInteractedWithCop = false;
@@ -13,7 +13,6 @@ public class Cop : NPC
     {
         if (hasInteractedWithCop)
         {
-            PlayerControls.Instance.EnableMovement();
             hasInteractedWithCop = false;
         }
     }

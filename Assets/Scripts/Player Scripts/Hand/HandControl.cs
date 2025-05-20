@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
-using UnityEngine.UI;
+
 
 public class HandControl : MonoBehaviour
 {
@@ -12,7 +11,6 @@ public class HandControl : MonoBehaviour
     public static HandControl Instance { get; private set; }
 
     private bool isDrawing = false;
-    private List<Tile> currentPath = new List<Tile>();
     private Tile currentTile;
     private bool skippedTutorial = false;
 
@@ -32,7 +30,7 @@ public class HandControl : MonoBehaviour
 
         // Register input callbacks
         controls.Mouse.LeftClick.performed += OnLeftClick;
-        controls.Mouse.RightClick.performed += OnRightClick;
+        //controls.Mouse.RightClick.performed += OnRightClick;
     }
 
     private void Start()
@@ -77,10 +75,10 @@ public class HandControl : MonoBehaviour
 
     }
 
-    private void OnRightClick(InputAction.CallbackContext context)
+    /*private void OnRightClick(InputAction.CallbackContext context)
     {
 
-    }
+    }*/
 
     private void FixedUpdate()
     {
@@ -140,7 +138,7 @@ public class HandControl : MonoBehaviour
         {
             Debug.Log("No tile found.");
             GridPathManager.Instance.FinishPath(null);
-            currentPath.Clear();
+
         }
     }
     private Tile GetTileUnderMouse(LayerMask mask)

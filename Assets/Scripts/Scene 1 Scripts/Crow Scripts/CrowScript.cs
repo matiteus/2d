@@ -80,7 +80,6 @@ public class CrowScript : MonoBehaviour
     private Vector2 GetBorderIntersection()
     {
         // Convert positions to screen space
-        offset = 10f; // Offset to avoid the edges
         Vector2 crowScreenPos = Camera.main.WorldToScreenPoint(transform.position);
         Vector2 playerScreenPos = Camera.main.WorldToScreenPoint(playerPos.position);
 
@@ -129,7 +128,7 @@ public class CrowScript : MonoBehaviour
             yield return null;
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     private void PlayCrySound()
     {

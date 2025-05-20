@@ -10,19 +10,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2437451858739921339, guid: f019a3c99c36ac44cb622d67e71d5448, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.450001
+      value: 88.13
       objectReference: {fileID: 0}
     - target: {fileID: 2437451858739921339, guid: f019a3c99c36ac44cb622d67e71d5448, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.2
+      value: 58.81
       objectReference: {fileID: 0}
     - target: {fileID: 2437451858739921339, guid: f019a3c99c36ac44cb622d67e71d5448, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: 2437451858739921339, guid: f019a3c99c36ac44cb622d67e71d5448, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2437451858739921339, guid: f019a3c99c36ac44cb622d67e71d5448, type: 3}
       propertyPath: m_LocalRotation.x
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2437451858739921339, guid: f019a3c99c36ac44cb622d67e71d5448, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2437451858739921339, guid: f019a3c99c36ac44cb622d67e71d5448, type: 3}
       propertyPath: m_LocalRotation.z
@@ -54,6 +54,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6401479301110533560, guid: f019a3c99c36ac44cb622d67e71d5448, type: 3}
+    - {fileID: 6322364885239274506, guid: f019a3c99c36ac44cb622d67e71d5448, type: 3}
+    - {fileID: 8062368821991497508, guid: f019a3c99c36ac44cb622d67e71d5448, type: 3}
+    - {fileID: 1130124217019202258, guid: f019a3c99c36ac44cb622d67e71d5448, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -82,6 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutscene2: {fileID: 0}
+  nextScene: 6
 --- !u!114 &9206079126698582626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Events:
     m_Signals:
-    - {fileID: 11400000, guid: 4aac6e2fad9fd4b4b86e4cba8388f850, type: 2}
+    - {fileID: 11400000, guid: 60706421d7e1205428beb1350ef111a0, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -105,7 +109,7 @@ MonoBehaviour:
           m_MethodName: Talk
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 6f29520f89c364f4ab31e057264f1acd, type: 2}
+            m_ObjectArgument: {fileID: 11400000, guid: 48ee652d293d3fd4f94ee26250a65443, type: 2}
             m_ObjectArgumentAssemblyTypeName: DialogueText, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0

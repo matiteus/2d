@@ -512,37 +512,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da4003c138e1a5049b60d1422307cd82, type: 3}
---- !u!1 &992907194
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 992907195}
-  m_Layer: 0
-  m_Name: Script holder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &992907195
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 992907194}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.402633, y: 12.180338, z: 2.4182258}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1016350646 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 437387153407032504, guid: 37071ec8b794593458f777c593672666, type: 3}
@@ -959,7 +928,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: THE GAME
+  m_text: INTO THE WOODS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1173,6 +1142,14 @@ PrefabInstance:
       propertyPath: cutscene2
       value: 
       objectReference: {fileID: 218146395}
+    - target: {fileID: 9206079126698582626, guid: 37071ec8b794593458f777c593672666, type: 3}
+      propertyPath: 'm_Events.m_Signals.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4aac6e2fad9fd4b4b86e4cba8388f850, type: 2}
+    - target: {fileID: 9206079126698582626, guid: 37071ec8b794593458f777c593672666, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f29520f89c364f4ab31e057264f1acd, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1354,6 +1331,5 @@ SceneRoots:
   - {fileID: 218146396}
   - {fileID: 878996253}
   - {fileID: 9083856275032123926}
-  - {fileID: 992907195}
   - {fileID: 2300909572366032208}
   - {fileID: 950282125}

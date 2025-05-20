@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d352ff6c04493f46ae3892564fb4e8b, type: 3}
   m_Name: Last Monologue
   m_EditorClassIdentifier: 
-  characterName: 
-  dialogue: []
+  characterName: You
+  dialogue:
+  - Hm.... Another Portal...
+  - I wonder where this one will take me

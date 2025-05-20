@@ -1,30 +1,32 @@
 using UnityEngine;
 
-public class Letter : NPC
+public class Letter : Interactable
 {
 
-    [SerializeField] private DialogueText letterTutorial;
-
     private bool hasReadLetter = false;
+
+
     protected override bool hasInteracted
     {
         get => hasReadLetter;
         set => hasReadLetter = value;
     }
+    private void Awake()
+    {
+        if (SceneLoader.Instance.GetHasSeenLetter())
+        {
+            this.transform.parent.gameObject.SetActive(false);
+        }
+    }
+
 
     protected override void HandleDialogueEnd()
     {
-        if (!hasReadLetter)
+        if (hasReadLetter)
         {
-            hasReadLetter = true;
-            Talk(letterTutorial);
+            GetComponent<LetterTutorial>().TriggerLetterTutorial();
         }
-        else
-        {
-            PlayerControls.Instance.EnableReReadLetter();
-            PlayerControls.Instance.EnableMovement();
-        }
-        
     }
+
 
 }

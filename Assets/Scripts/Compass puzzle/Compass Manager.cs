@@ -18,11 +18,16 @@ public class CompassManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
+        }
+
+        if (SceneLoader.Instance.GetHasFinishedCompassPuzzle())
+        {
+            hasFinished = true;
+            ActivateAllTorches();
         }
     }
 
@@ -52,10 +57,11 @@ public class CompassManager : MonoBehaviour
         {
             if (listOfTorches.SequenceEqual(expectedList))
             {
-                SceneLoader.Instance.hasFinishedCompassPuzzle = true;
+                SceneLoader.Instance.SetHasFinishedCompassPuzzleTrue();
                 Debug.Log("torches activated sucessfully");
                 ActivateAllTorches();
-                
+                SceneLoader.Instance.SetGameStage(nextScene, 1);
+
             }
             else
             {
@@ -86,7 +92,6 @@ public class CompassManager : MonoBehaviour
         {
             torch.ActivateTorch();
         }
-        SceneLoader.Instance.SetGameStage(nextScene);
     }
 }
 

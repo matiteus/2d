@@ -14,7 +14,6 @@ public class TabletIcon : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -25,10 +24,18 @@ public class TabletIcon : MonoBehaviour
 
     public void VibrateTablet()
     {
+        if(tabletIcon == null)
+        {
+            return;
+        }
         tabletIcon.sprite = tabletIconOn;
     }
     public void StopVibratingTablet()
     {
+        if (tabletIcon == null)
+        {
+            return;
+        }
         tabletIcon.sprite = tabletIconOff;
     }
 }

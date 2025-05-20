@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LeadInteractable : NPC
+public class LeadInteractable : Interactable
 {
     [SerializeField] private int nextScene = 3;
 
@@ -15,7 +15,6 @@ public class LeadInteractable : NPC
     {
         if (hasInteractedWithLead)
         {
-            PlayerControls.Instance.EnableMovement();
             SceneLoader.Instance.SetGameStage(nextScene);
         }
         

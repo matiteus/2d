@@ -1,18 +1,10 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PortalEndGame : MonoBehaviour,IInteractable
 {
+    [SerializeField] private int nextScene;
     public void Interact()
     {
-        StartCoroutine(LoadNextCutscene());
+        SceneLoader.Instance.PortalTeleport(nextScene);
     }
-
-    private IEnumerator LoadNextCutscene()
-    {
-        yield return new WaitForSeconds(1f);
-        SceneManager.LoadSceneAsync(9);
-    }
-
 }

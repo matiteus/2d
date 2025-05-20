@@ -3,7 +3,6 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using System;
-using System.Linq;
 using System.Collections;
 
 
@@ -30,9 +29,12 @@ public class DialogueControllerScript : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
+            Debug.Log(this.gameObject.name + " already exists, destroying this instance");
+            Debug.Log("DialogueControllerScript already exists, destroying this instance");
             Destroy(gameObject);
         }
         if (sentences == null)
@@ -54,6 +56,10 @@ public class DialogueControllerScript : MonoBehaviour
 
     public void StartConversation(DialogueText dialogueText)
     {
+        if(PlayerControls.Instance)
+        {
+            PlayerControls.Instance.DisableMovement();
+        }
         inputAllowed = false;
         if (!dialogueBox.activeSelf)
             dialogueBox.SetActive(true);
@@ -99,6 +105,11 @@ public class DialogueControllerScript : MonoBehaviour
         nameText.text = "";
         dialogueBox.SetActive(false);
 
+        if (PlayerControls.Instance)
+        {
+            PlayerControls.Instance.EnableMovement();
+        }
+        
         OnConversationEnded?.Invoke();
     }
 

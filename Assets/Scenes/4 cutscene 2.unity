@@ -505,6 +505,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8466408760712273311, guid: 37071ec8b794593458f777c593672666, type: 3}
+      propertyPath: nextScene
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8466408760712273311, guid: 37071ec8b794593458f777c593672666, type: 3}
       propertyPath: dialogueController
       value: 
       objectReference: {fileID: 0}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PortalMagic : MonoBehaviour
+public class PortalMagic : MonoBehaviour, IInteractable
 {
 
     [SerializeField] private int nextScene;

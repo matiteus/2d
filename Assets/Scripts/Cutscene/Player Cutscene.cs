@@ -15,7 +15,7 @@ public class PlayerCutscene : Dialogue
         set => playerMonologueStarted = value;
     }
 
-    protected override void  HandleDialogueEnd()
+    protected override void HandleDialogueEnd()
     {
         if (playerMonologueStarted)
         {   //second scene for first cutscene
@@ -25,11 +25,19 @@ public class PlayerCutscene : Dialogue
             }
             else
             {
-                //Start the second Cutscene
-                SceneLoader.Instance.SetGameStage(nextScene);
+                if (nextScene == 5)
+                {
+                    //for the second cutscene
+                    SceneLoader.Instance.SetGameStage(nextScene);
+                }
+                else
+                {
+                    //for the third and last cutscene
+                    SceneLoader.Instance.SetGameStage(nextScene, 2);
+                }
+
             }
-            
+
         }
-        
     }
 }
