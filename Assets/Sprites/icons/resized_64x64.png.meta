@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 8c00b6f518443f749ac6e641ab6a346d
+guid: 52cd95d6be1cf754cb1e45077a1a995e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5559074785670682028
-    second: tablet on_0
-  - first:
-      213: -2252533659790471680
-    second: tablet on_1
+      213: 7313839594592214066
+    second: resized_64x64_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tablet on_0
+      name: resized_64x64_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 11
-        width: 13
-        height: 45
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 45aa4488fe23ad2b0800000000000000
-      internalID: -5559074785670682028
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tablet on_1
-      rect:
-        serializedVersion: 2
-        x: 12
-        y: 8
-        width: 49
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00e049322946db0e0800000000000000
-      internalID: -2252533659790471680
+      spriteID: 23c1bd36c5aff7560800000000000000
+      internalID: 7313839594592214066
       vertices: []
       indices: 
       edges: []
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tablet on_0: -5559074785670682028
-      tablet on_1: -2252533659790471680
+      resized_64x64_0: 7313839594592214066
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

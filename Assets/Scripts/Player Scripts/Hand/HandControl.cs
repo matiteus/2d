@@ -35,7 +35,7 @@ public class HandControl : MonoBehaviour
 
     private void Start()
     {
-        Cursor.visible = false;
+        
     }
 
 
@@ -46,11 +46,13 @@ public class HandControl : MonoBehaviour
     private void OnEnable()
     {
         controls.Mouse.Enable();
+        Cursor.visible = false;
     }
 
     private void OnDisable()
     {
         controls.Mouse.Disable();
+        Cursor.visible = true;
     }
 
     private void OnLeftClick(InputAction.CallbackContext context)
